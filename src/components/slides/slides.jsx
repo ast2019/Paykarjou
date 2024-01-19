@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import Button from '../shared/Button/index';
 
-const Slides = ({ img, title, desc, handleNext, handlePrev }) => {
+const Slides = ({ img, title, desc, handleNext, handlePrev, categories }) => {
   return (
     <div className="bg-secondary flex items-start justify-center h-screen">
       <div className="w-[85%] h-full flex flex-row-reverse items-start justify-start gap-5">

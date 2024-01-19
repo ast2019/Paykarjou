@@ -17,10 +17,10 @@ export default function Home({categories}) {
   return (
     <main>
       <div className="hidden md:flex">
-        <Slider />
+        <Slider categories={categories} />
       </div>
       <div className="flex md:hidden">
-        <MobileLanding />
+     
       </div>
     </main>
   );
@@ -33,34 +33,15 @@ Home.getLayout = function getLayout(page) {
 
 
 export const getServerSideProps = async () => {
-   let categories;
+  let categories = []; 
   try {
-    categories = await request('/page/index');
-    
+    const response = await request('/page/index');
+    categories = response?.data?.data?.data || []; 
   } catch (error) {
-    console.log(JSON.stringify(error, null, 2));
+    console.error('API Error:', error);
   }
-  console.log(categories?.data?.data);
-
-
   return {
-    props: {
-      categories: categories? categories?.data?.data.data: [],
-    },
+    props: { categories },
   };
 };
 
-// export const getServerSideProps = async () => {
-//   let gallery;
-//   try {
-//     gallery = await request('/gallery/index');
-//   } catch (error) {
-//     console.log(JSON.stringify(error, null, 2));
-//   }
-//   console.log(gallery?.data?.data);
-//   return {
-//     props: {
-//       films: gallery?.data?.data?.data?.filter((item) => item.type === 'video'),
-//     },
-//   };
-// };
